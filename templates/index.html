@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD App Table</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <script src="{{url_for('static',filename='js/vue.js')}}"></script>
+    <script src="{{url_for('static',filename='js/app.js')}}"></script>
+</head>
+<body>
+    <div id="app">
+        <h1 class="h1">CRUD App Table</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr v-for="row in rows" :key="row.id">
+                    <td>{{row.id }}</td>
+                    <td>{{row.name}}</td>
+                    <td>{{row.email}}</td>
+                    <td>{{row.phone}}</td>
+                    <td><button @click="edit(row)">Edit</button></td>
+                    <td><button @click="deleteData(row)">Delete</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div id="modal" v-show="showModal">
+            <h2>{{ modalTitle }}</h2>
+            <form @submit.prevent="submit">
+                <div>
+                    <label>Name:</label>
+                    <input type="text" v-model="formData.name">
+                </div>
+                <div>
+                    <label>Email:</label>
+                    <input type="email" v-model="formData.email">
+                </div>
+                <div>
+                    <label>Phone:</label>
+                    <input type="text" v-model="formData.phone">
+            </div>
+            <div>
+                <button type="submit">{{ modalButton }}</button>
+                <button type="button" @click="closeModal">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <button id="add-btn" @click="addData">Add Data</button>
+</div>
+</body>
+</html>
+
